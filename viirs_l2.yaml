@@ -1,0 +1,35 @@
+reader:
+  description: VIIRS L2 Reader (NASA SIPS format)
+  name: viirs_l2
+  reader: !!python/name:satpy.readers.yaml_reader.FileYAMLReader
+  sensors: [viirs]
+  default_datasets:
+
+file_types:
+  l2_generic:
+    description: Generic NASA SIPS level 2 file
+    file_reader: !!python/name:satpy.readers.viirs_l2.VIIRSL2FileHandler
+    file_patterns:
+      - '{dataset:s}_L2_VIIRS_SNPP.A{year_jday:%Y%j}.{hour_minute:%H%M}.{unknown:%f}.{unknown_time:%Y%j%H%M%S}.nc'
+
+datasets:
+    latitude:
+      name: 'latitude'
+      resolution: 742
+      file_type: l2_generic
+      file_key: 'geolocation_data/latitude'
+      units: degrees_north
+      valid_min: -90.0
+      valid_max: 90.0
+      coordinates: [longitude, latitude]
+      standard_name: latitude
+    longitude:
+      name: 'longitude'
+      resolution: 742
+      file_type: l2_generic
+      file_key: 'geolocation_data/longitude'
+      units: degrees_east
+      valid_min: -180.0
+      valid_max: 180.0
+      coordinates: [longitude, latitude]
+      standard_name: longitude
